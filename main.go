@@ -9,6 +9,7 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
+	"os"
 )
 
 type task struct {
@@ -123,5 +124,8 @@ func main() {
 	router.HandleFunc("/tasks/{id}", deleteTask).Methods("DELETE")
 	router.HandleFunc("/tasks/{id}", updateTask).Methods("PUT")
 
-	log.Fatal(http.ListenAndServe(":3000", router))
+	if port == "" {
+		port= "8000"
+	}
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }
